@@ -18,22 +18,46 @@ namespace car_management_backend.Data.Repositories
 
         public bool DeleteCar(long id)
         {
-            throw new NotImplementedException();
+            var car = _dbContext.Cars.FirstOrDefault(x => x.CarId == id);
+            if (car != null)
+            {
+                _dbContext.Cars.Remove(car);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
-        public IEnumerable<Car> GetAllCars()
+        public IEnumerable<Car> GetAllCars(
+            String? carMake,
+            long? garageId,
+            int? fromYearm,
+            int? toYear)
         {
-            throw new NotImplementedException();
+            if (garageId == null) { garageId = 0; }
+            if (carMake == null) { carMake = ""; }
+            if (fromYearm == null) { fromYearm = 0; }
+            if (toYear == null) {  toYear = 9999; }
+            return _dbContext.Cars
+                .Where(z => z.ProductionYear >= fromYearm 
+                && z.ProductionYear <= toYear 
+                && (garageId == 0 || z.GarageIds.Contains((long)garageId)) 
+                && z.Make.Contains(carMake));
         }
 
         public Car GetCar(long id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Cars.Find(id);
         }
 
-        public Car UpdateCar(long id)
+        public void UpdateCar(Car c)
         {
-            throw new NotImplementedException();
+            _dbContext.Cars.Update(c);
+            _dbContext.SaveChanges();
+        }
+        public IEnumerable<Garage> GetGarages(IEnumerable<long> garages)
+        {
+            return _dbContext.Garages.Where(x => garages.Contains(x.GarageId));
         }
     }
 }

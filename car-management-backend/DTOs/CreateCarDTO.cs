@@ -1,10 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace car_management_backend.Data.Entitities
+﻿namespace car_management_backend.DTOs
 {
-    public class Car
-    {
-        public long CarId { get; set; }
+    public class CreateCarDTO
+    {        
         public String Make { get; set; }
         public string Model { get; set; }
         public int ProductionYear { get; set; }

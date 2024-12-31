@@ -11,7 +11,7 @@ namespace car_management_backend.Services.Interfaces
             long garageId,
             DateTime startDate,
             DateTime endDate);
-        IEnumerable<GarageDTO> GetAllGarages(String city);
+        IEnumerable<ResponseGarageDTO> GetAllGarages(String city);
         GarageDTO CreateGarage(GarageDTO garage);
     }
 }

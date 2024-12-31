@@ -18,39 +18,40 @@ namespace car_management_backend.Controllers
         }
         [HttpGet]
         [Route("{id}")]
-        public void GetCarById([FromRoute] long id)
+        public CarDTO GetCarById([FromRoute] long id)
         {
-
+            return _carService.GetCar(id);
         }
         [HttpPut]
         [Route("{id}")]
-        public void UpdateCarById([FromRoute] long id)
+        public CreateCarDTO UpdateCarById([FromRoute]long id, [FromBody]CreateCarDTO car)
         {
-
+            return _carService.UpdateCar(id, car);
         }
+
         [HttpDelete]
         [Route("{id}")]
-        public void DeleteCarById([FromRoute] long id)
+        public bool DeleteCarById([FromRoute]long id)
         {
-
+            return _carService.DeleteCar(id);
         }
 
         [HttpGet]
-        public void GetAllCars(
-            [FromQuery]string carMake,
-            [FromQuery]long garageId,
-            [FromQuery]int fromYearm,
-            [FromQuery]int toYear)
-        { 
-            
+        public IEnumerable<ResponseCarDTO> GetAllCars(
+            [FromQuery]string ?carMake,
+            [FromQuery]long ?garageId,
+            [FromQuery]int ?fromYear,
+            [FromQuery]int ?toYear)
+        {
+            return _carService.GetCars(carMake, garageId, fromYear, toYear);
         }
 
         [HttpPost]
-        public CarDTO CreateCar(
-            [FromBody]CarDTO car)
+        public CreateCarDTO CreateCar(
+            [FromBody]CreateCarDTO car)
         {
-            _carService.CreateCar(car);
-            return car;
+            foreach(long id in car.GarageIds) Console.WriteLine(id);
+            return _carService.CreateCar(car);
         }
     }
 }

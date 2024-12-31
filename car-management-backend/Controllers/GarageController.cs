@@ -29,11 +29,11 @@ namespace car_management_backend.Controllers
         {
             _garageService.UpdateGarage(id, garage);
         }
+
         [HttpDelete]
         [Route("{id}")]
         public bool DeleteGarageById([FromRoute]long id)
         {
-            Console.WriteLine(id);
             return _garageService.DeleteGarage(id);
         }
 
@@ -48,7 +48,7 @@ namespace car_management_backend.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<GarageDTO> GetAllGarages([FromQuery]String ?city)
+        public IEnumerable<ResponseGarageDTO> GetAllGarages([FromQuery]String ?city)
         {
             return _garageService.GetAllGarages(city);
         }

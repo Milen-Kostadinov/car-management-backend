@@ -33,10 +33,10 @@ namespace car_management_backend.Services
             return _garageRepo.DeleteGarage(id);
         }
 
-        public IEnumerable<GarageDTO> GetAllGarages(String city)
+        public IEnumerable<ResponseGarageDTO> GetAllGarages(String city)
         {
             var garages = _garageRepo.GetAllGarages(city);
-            return garages.Select(ConvertToDTO).ToList();
+            return garages.Select(ConvertToResponseDTO).ToList();
         }
 
         public GarageDTO GetGarage(long id)
@@ -66,6 +66,17 @@ namespace car_management_backend.Services
         public GarageDTO ConvertToDTO(Garage garage)
         {
             return new GarageDTO
+            {
+                Id = garage.GarageId,
+                Name = garage.Name,
+                Location = garage.Location,
+                City = garage.City,
+                Capacity = garage.Capacity,
+            };
+        }
+        public ResponseGarageDTO ConvertToResponseDTO(Garage garage)
+        {
+            return new ResponseGarageDTO
             {
                 Id = garage.GarageId,
                 Name = garage.Name,
