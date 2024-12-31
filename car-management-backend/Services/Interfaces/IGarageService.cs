@@ -5,7 +5,7 @@ namespace car_management_backend.Services.Interfaces
     public interface IGarageService
     {
         GarageDTO GetGarage(long id);
-        GarageDTO UpdateGarage(long id);
+        CreateGarageDTO UpdateGarage(long id, CreateGarageDTO g);
         bool DeleteGarage(long id);
         IEnumerable<GarageQueryDTO> GetGarageReport(
             long garageId,

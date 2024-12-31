@@ -23,7 +23,14 @@ namespace car_management_backend.Data.Services
 
         public bool DeleteGarage(long id)
         {
-            throw new NotImplementedException();
+            var garage = _dbContext.Garages.FirstOrDefault(x => x.GarageId == id);
+            if (garage != null) 
+            {
+                _dbContext.Garages.Remove(garage);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public IEnumerable<Garage> GetAllGarages(String city)
@@ -39,9 +46,10 @@ namespace car_management_backend.Data.Services
             return _dbContext.Garages.Find(id);
         }
 
-        public Garage UpdateGarage(long id)
+        public void UpdateGarage(Garage g)
         {
-            throw new NotImplementedException();
+            _dbContext.Garages.Update(g);
+            _dbContext.SaveChanges();
         }
     }
 }

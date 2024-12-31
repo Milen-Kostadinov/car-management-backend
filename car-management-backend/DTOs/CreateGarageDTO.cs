@@ -1,8 +1,7 @@
 ﻿namespace car_management_backend.DTOs
 {
-    public class GarageDTO
-    {
-        public long Id { get; set; }
+    public class CreateGarageDTO
+    { 
         public int Capacity { get; set; }
         public String City { get; set; }
         public String Location { get; set; }

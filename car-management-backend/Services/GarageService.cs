@@ -30,7 +30,7 @@ namespace car_management_backend.Services
 
         public bool DeleteGarage(long id)
         {
-            throw new NotImplementedException();
+            return _garageRepo.DeleteGarage(id);
         }
 
         public IEnumerable<GarageDTO> GetAllGarages(String city)
@@ -49,19 +49,29 @@ namespace car_management_backend.Services
             throw new NotImplementedException();
         }
 
-        public GarageDTO UpdateGarage(long id)
+        public CreateGarageDTO UpdateGarage(long id, CreateGarageDTO g)
         {
-            throw new NotImplementedException();
+            var garage = _garageRepo.GetGarage(id);
+            if (garage == null) return null;
+
+            garage.Location = g.Location;
+            garage.Name = g.Name;
+            garage.City = g.City;
+            garage.Capacity = g.Capacity;
+
+            _garageRepo.UpdateGarage(garage);
+
+            return g;
         }
         public GarageDTO ConvertToDTO(Garage garage)
         {
             return new GarageDTO
             {
-                GarageId = garage.GarageId,
-                Capacity = garage.Capacity,
-                City = garage.City,
+                Id = garage.GarageId,
+                Name = garage.Name,
                 Location = garage.Location,
-                Name = garage.Name
+                City = garage.City,
+                Capacity = garage.Capacity,
             };
         }
     }

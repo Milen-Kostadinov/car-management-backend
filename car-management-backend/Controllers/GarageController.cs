@@ -18,35 +18,32 @@ namespace car_management_backend.Controllers
             this._garageService = garageService;
         }
 
-        [HttpGet]
-        [Route("{id}")]
-        public GarageDTO GetGarageById([FromRoute]long id)
+        [HttpGet("{id}")]
+        public GarageDTO GetGarageById(long id)
         {
             return _garageService.GetGarage(id);
         }
         [HttpPut]
         [Route("{id}")]
-        public void UpdateGarageById([FromRoute] long id)
+        public void UpdateGarageById(long id, CreateGarageDTO garage)
         {
-            Console.WriteLine("dawwdawdawdawdawdadw");
-
+            _garageService.UpdateGarage(id, garage);
         }
         [HttpDelete]
         [Route("{id}")]
-        public void DeleteGarageById([FromRoute] long id)
+        public bool DeleteGarageById([FromRoute]long id)
         {
-
-            Console.WriteLine("dawwdawdawdawdawdadw");
+            Console.WriteLine(id);
+            return _garageService.DeleteGarage(id);
         }
 
         [HttpGet]
         [Route("dailyAvailabilityReport")]
         public void DailyAvailabilityReport(
-            [FromQuery]long garageId,
-            [FromQuery]DateTime startDate,
-            [FromQuery]DateTime endDate)
+            [FromQuery]long ?garageId,
+            [FromQuery]DateTime ?startDate,
+            [FromQuery]DateTime ?endDate)
         {
-            Console.WriteLine("dawwdawdawdawdawdadw");
 
         }
 
@@ -57,10 +54,17 @@ namespace car_management_backend.Controllers
         }
 
         [HttpPost]
-        public void CreateGarage(
+        public CreateGarageDTO CreateGarage(
             [FromBody]GarageDTO garage) 
         {
-            _garageService.CreateGarage(garage);
+            GarageDTO d = _garageService.CreateGarage(garage);
+            return new CreateGarageDTO
+            {
+                Capacity = d.Capacity,
+                City = d.City,
+                Location = d.Location,
+                Name = d.Name
+            };
         }
     }
 }

@@ -7,7 +7,7 @@ namespace car_management_backend.Data.Services.Interfaces
     public interface IGarageRepo
     {
         Garage GetGarage(long id);
-        Garage UpdateGarage(long id);
+        void UpdateGarage(Garage g);
         bool DeleteGarage(long id);
         void CreateGarage(Garage garage);
         IEnumerable<Garage> GetAllGarages(String city);
